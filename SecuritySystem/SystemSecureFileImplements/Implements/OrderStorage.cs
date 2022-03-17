@@ -27,10 +27,11 @@ namespace SecuritySystemFileImplement.Implements
             {
                 return null;
             }
-            return source.Orders.Where(rec => rec.SecureId.ToString().Contains(model.SecureId.ToString()))
+            return source.Orders.Where(rec => rec.SecureId.ToString().Contains(model.SecureId.ToString())) 
            .Select(CreateModel)
            .ToList();
         }
+        
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null)
