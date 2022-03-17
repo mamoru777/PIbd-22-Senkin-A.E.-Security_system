@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SecuritySystemBusinessLogic\SecuritySystemBusinessLogic.csproj" />
-    <ProjectReference Include="..\SecuritySystemListImplement\SecuritySystemListImplement.csproj" />
+    <ProjectReference Include="..\SystemSecureFileImplements\SecuritySystemFileImplements.csproj" />
   </ItemGroup>
 
 </Project>
