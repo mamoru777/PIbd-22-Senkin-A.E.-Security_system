@@ -15,7 +15,7 @@ namespace SecuritySystemFileImplement
         private static FileDataListSingleton instance;
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
-        private readonly string SecureFileName = "Product.xml";
+        private readonly string SecureFileName = "Secure.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Secure> Secures { get; set; }
@@ -33,11 +33,18 @@ namespace SecuritySystemFileImplement
             }
             return instance;
         }
+        /*
         ~FileDataListSingleton()
         {
             SaveComponents();
             SaveOrders();
             SaveSecures();
+        }*/
+        public static void SaveFileDataListSingleton()
+        {
+            instance.SaveComponents();
+            instance.SaveSecures();
+            instance.SaveOrders();
         }
         private List<Component> LoadComponents()
         {
@@ -72,7 +79,7 @@ namespace SecuritySystemFileImplement
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        SecureId = Convert.ToInt32(elem.Element("DishId").Value),
+                        SecureId = Convert.ToInt32(elem.Element("SecureId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus),
@@ -136,7 +143,7 @@ namespace SecuritySystemFileImplement
                 {
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
-                    new XElement("DishId", order.SecureId),
+                    new XElement("SecureId", order.SecureId),
                     new XElement("Count", order.Count),
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
@@ -152,19 +159,19 @@ namespace SecuritySystemFileImplement
             if (Secures != null)
             {
                 var xElement = new XElement("Secures");
-                foreach (var product in Secures)
+                foreach (var secure in Secures)
                 {
                     var compElement = new XElement("SecureComponents");
-                    foreach (var component in product.SecureComponents)
+                    foreach (var component in secure.SecureComponents)
                     {
                         compElement.Add(new XElement("SecureComponent",
                         new XElement("Key", component.Key),
                         new XElement("Value", component.Value)));
                     }
                     xElement.Add(new XElement("Secure",
-                     new XAttribute("Id", product.Id),
-                     new XElement("SecureName", product.SecureName),
-                     new XElement("Price", product.Price),
+                     new XAttribute("Id", secure.Id),
+                     new XElement("SecureName", secure.SecureName),
+                     new XElement("Price", secure.Price),
                      compElement));
                 }
                 var xDocument = new XDocument(xElement);

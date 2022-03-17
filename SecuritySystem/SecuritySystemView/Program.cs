@@ -36,6 +36,7 @@ namespace SecuritySystemView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
+            SecuritySystemFileImplement.FileDataListSingleton.SaveFileDataListSingleton();
         }
         private static IUnityContainer BuildUnityContainer()
         {
