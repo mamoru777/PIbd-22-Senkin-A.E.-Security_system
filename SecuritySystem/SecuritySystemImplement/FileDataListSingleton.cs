@@ -15,7 +15,7 @@ namespace SecuritySystemFileImplement
         private static FileDataListSingleton instance;
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
-        private readonly string SecureFileName = "Secure.xml";
+        private readonly string SecureFileName = "Product.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Secure> Secures { get; set; }
@@ -33,18 +33,11 @@ namespace SecuritySystemFileImplement
             }
             return instance;
         }
-        /*
         ~FileDataListSingleton()
         {
             SaveComponents();
             SaveOrders();
             SaveSecures();
-        }*/
-        public static void SaveFileDataListSingleton()
-        {
-            instance.SaveIngredients();
-            instance.SaveDishes();
-            instance.SaveOrders();
         }
         private List<Component> LoadComponents()
         {
@@ -65,9 +58,9 @@ namespace SecuritySystemFileImplement
             }
             return list;
         }
- 
- 
-    private List<Order> LoadOrders()
+
+
+        private List<Order> LoadOrders()
         {
             var list = new List<Order>();
             if (File.Exists(OrderFileName))
@@ -79,7 +72,7 @@ namespace SecuritySystemFileImplement
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        SecureId = Convert.ToInt32(elem.Element("DishId").Value),
+                        SecureId = Convert.ToInt32(elem.Element("SecureId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = (OrderStatus)Enum.Parse(typeof(OrderStatus),
@@ -143,7 +136,7 @@ namespace SecuritySystemFileImplement
                 {
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
-                    new XElement("DishId", order.SecureId),
+                    new XElement("SecureId", order.SecureId),
                     new XElement("Count", order.Count),
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
