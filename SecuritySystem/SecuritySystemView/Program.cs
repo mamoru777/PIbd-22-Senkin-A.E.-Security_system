@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.StoragesContracts;
 using SecuritySystemBusinessLogic.BusinessLogics;
-using SecuritySystemFileImplement.Implements;
+using SecuritySystemDatabaseImplement.Implements;
 using Unity;
 using Unity.Lifetime;
 
@@ -36,7 +36,6 @@ namespace SecuritySystemView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
-            SecuritySystemFileImplement.FileDataListSingleton.SaveFileDataListSingleton();
         }
         private static IUnityContainer BuildUnityContainer()
         {
