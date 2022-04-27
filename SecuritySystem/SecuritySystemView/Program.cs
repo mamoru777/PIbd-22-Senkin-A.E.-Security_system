@@ -7,6 +7,8 @@ using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.StoragesContracts;
 using SecuritySystemBusinessLogic.BusinessLogics;
 using SecuritySystemDatabaseImplement.Implements;
+using SecuritySystemBusinessLogic.OfficePackage;
+using SecuritySystemBusinessLogic.OfficePackage.Implements;
 using Unity;
 using Unity.Lifetime;
 
@@ -52,6 +54,10 @@ namespace SecuritySystemView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<ISecureLogic, SecureLogic>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
