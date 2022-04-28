@@ -52,7 +52,7 @@ namespace SecuritySystemDatabaseImplement.Implements
             using var context = new SecureSystemDatabase();
             return context.Orders
             .Include(rec => rec.Secure)
-            .Where(rec => rec.Id.Equals(model.Id))
+            .Where(rec => rec.SecureId == model.SecureId || rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
             .ToList()
             .Select(CreateModel)
             .ToList();
