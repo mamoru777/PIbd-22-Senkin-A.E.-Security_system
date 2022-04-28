@@ -17,6 +17,9 @@ namespace SecuritySystemContracts.ViewModels
         public int SecureId { get; set; }
         [DisplayName("Изделие")]
         public string SecureName { get; set; }
+        public int ClientId { get; set; }
+        [DisplayName("Клиент")]
+        public string ClientFLM { get; set; }
         [DisplayName("Количество")]
         public int Count { get; set; }
         [DisplayName("Сумма")]

@@ -19,7 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SecuritySystemBusinessLogic\SecuritySystemBusinessLogic.csproj" />
     <ProjectReference Include="..\SecuritySystemDatabaseImplement\SecuritySystemDatabaseImplement.csproj" />
-    <ProjectReference Include="..\SystemSecureFileImplements\SecuritySystemFileImplements.csproj" />
+    <ProjectReference Include="..\SystemSecureFileImplements\SecuritySystemFileImplement.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SecuritySystemDatabaseImplement.Models
 {
-    class Secure
+    public class Secure
     {
         public int Id { get; set; }
         [Required]

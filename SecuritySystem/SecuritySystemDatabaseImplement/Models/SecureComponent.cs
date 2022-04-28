@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SecuritySystemDatabaseImplement.Models
 {
-    class SecureComponent
+    public class SecureComponent
     {
         public int Id { get; set; }
         public int SecureId { get; set; }

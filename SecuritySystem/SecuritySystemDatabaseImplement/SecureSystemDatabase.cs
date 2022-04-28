@@ -22,5 +22,6 @@ namespace SecuritySystemDatabaseImplement
         public virtual DbSet<Secure> Secures { set; get; }
         public virtual DbSet<SecureComponent> SecureComponents { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
+        public virtual DbSet<Client> Clients { set; get; }
     }
 }
