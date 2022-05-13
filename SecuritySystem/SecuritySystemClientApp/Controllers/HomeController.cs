@@ -64,8 +64,7 @@ namespace SecuritySystemClientApp.Controllers
         {
             return View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ??
-            HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
         [HttpGet]
@@ -112,7 +111,7 @@ namespace SecuritySystemClientApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Products = APIClient.GetRequest<List<SecureViewModel>>("api/main/getproductlist");
+            ViewBag.Secures = APIClient.GetRequest<List<SecureViewModel>>("api/main/getsecurelist");
             return View();
         }
         [HttpPost]
@@ -133,10 +132,9 @@ namespace SecuritySystemClientApp.Controllers
             Response.Redirect("Index");
         }
         [HttpPost]
-        public decimal Calc(decimal count, int product)
+        public decimal Calc(decimal count, int secure)
         {
-            SecureViewModel prod =
-            APIClient.GetRequest<SecureViewModel>($"api/main/getproduct?productId={product}");
+            SecureViewModel prod = APIClient.GetRequest<SecureViewModel>($"api/main/getsecure?secureId={secure}");
             return count * prod.Price;
         }
     }

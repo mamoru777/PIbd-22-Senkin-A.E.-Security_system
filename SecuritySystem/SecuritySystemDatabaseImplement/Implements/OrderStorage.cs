@@ -37,7 +37,7 @@ namespace SecuritySystemDatabaseImplement.Implements
             }
             using var context = new SecureSystemDatabase();
             var order = context.Orders
-            .Include(rec => rec.Secure)
+            .Include(rec => rec.Secure).Include(rec => rec.Client)
             .FirstOrDefault(rec => rec.Id == model.Id ||
             rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
@@ -51,14 +51,18 @@ namespace SecuritySystemDatabaseImplement.Implements
             }
             using var context = new SecureSystemDatabase();
             return context.Orders
- .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                .Include(rec => rec.Client)
+                .Include(rec => rec.Secure)
+                /*.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
 rec.DateCreate.Date == model.DateCreate.Date) ||
  (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
 >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
- (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-
-            .Select(CreateModel)
-            .ToList();
+ (model.ClientId.HasValue && rec.ClientId == model.ClientId))*/
+                .Where(rec => rec.SecureId == model.SecureId ||
+                (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
+                (rec.ClientId == model.ClientId))
+                .Select(CreateModel)
+                .ToList();
         }
 
         public List<OrderViewModel> GetFullList()
@@ -66,6 +70,7 @@ rec.DateCreate.Date == model.DateCreate.Date) ||
             using var context = new SecureSystemDatabase();
             return context.Orders
             .Include(rec => rec.Secure)
+            .Include(rec => rec.Client)
             .ToList()
             .Select(CreateModel)
             .ToList();
@@ -112,6 +117,7 @@ rec.DateCreate.Date == model.DateCreate.Date) ||
         }
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
+            order.ClientId = (int)model.ClientId;
             order.SecureId = model.SecureId;
             order.Count = model.Count;
             order.Sum = model.Sum;
@@ -123,8 +129,10 @@ rec.DateCreate.Date == model.DateCreate.Date) ||
         private static OrderViewModel CreateModel(Order order)
         {
             return new OrderViewModel
-            {
+            {          
                 Id = order.Id,
+                ClientId = order.ClientId,
+                ClientFLM = order.Client.ClientFLM,
                 SecureId = order.SecureId,
                 SecureName = order.Secure.SecureName,
                 Count = order.Count,

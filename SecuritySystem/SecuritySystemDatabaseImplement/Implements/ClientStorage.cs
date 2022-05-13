@@ -26,7 +26,8 @@ namespace SecuritySystemDatabaseImplement.Implements
             }
             using var context = new SecureSystemDatabase();
             return context.Clients
-            .Where(rec => rec.Email.Equals(model.Email) && rec.Password.Equals(model.Password))
+            .Include(rec => rec.Orders)
+            .Where(rec => rec.Email == model.Email)
             .Select(CreateModel)
             .ToList();
         }
@@ -40,7 +41,7 @@ namespace SecuritySystemDatabaseImplement.Implements
             using var context = new SecureSystemDatabase();
             var client = context.Clients
             .Include(x => x.Orders)
-            .FirstOrDefault(rec => rec.Email.Equals(model.Email) || rec.Id == model.Id);
+            .FirstOrDefault(rec => rec.Email == model.Email || rec.Id == model.Id);
             return client != null ? CreateModel(client) : null;
             
             

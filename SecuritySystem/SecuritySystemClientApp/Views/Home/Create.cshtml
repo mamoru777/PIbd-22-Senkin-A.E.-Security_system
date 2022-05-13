@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-4">Изделие:</div>
         <div class="col-8">
-            <select id="product" name="product" class="form-control" aspitems="@(new SelectList(@ViewBag.Products,"Id", "ProductName"))"></select>
+            <select id="secure" name="secure" class="form-control" asp-items="@(new SelectList(@ViewBag.Secures,"Id", "SecureName"))"></select>
         </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-4">Сумма:</div>
         <div class="col-8">
-            <input type="text" id="sum" name="sum" readonly="true" />
+            <input type="text" id="sum" name="sum" readonly="readonly" />
         </div>
     </div>
     <div class="row">
@@ -27,7 +27,7 @@
     </div>
 </form>
 <script>
-    $('#product').on('change', function () {
+    $('#secure').on('change', function () {
         check();
     });
     $('#count').on('change', function () {
@@ -35,12 +35,12 @@
     });
     function check() {
         var count = $('#count').val();
-        var product = $('#product').val();
-        if (count && product) {
+        var secure = $('#secure').val();
+        if (count && secure) {
             $.ajax({
                 method: "POST",
                 url: "/Home/Calc",
-                data: { count: count, product: product },
+                data: { count: count, secure: secure },
                 success: function (result) {
                     $("#sum").val(result);
                 }

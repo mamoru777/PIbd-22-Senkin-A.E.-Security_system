@@ -37,6 +37,7 @@ namespace SecuritySystemView
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[3].Visible = false;
                     dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
@@ -54,6 +55,11 @@ namespace SecuritySystemView
         private void ИзделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormSecures>();
+            form.ShowDialog();
+        }
+        private void toolStripClients_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormClients>();
             form.ShowDialog();
         }
         private void ComponentsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -95,8 +101,7 @@ namespace SecuritySystemView
                 {
                     _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                     {
-                        OrderId =
-                   id
+                        OrderId = id
                     });
                     LoadData();
                 }

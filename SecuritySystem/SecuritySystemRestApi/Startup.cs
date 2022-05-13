@@ -43,9 +43,7 @@ namespace SecuritySystemRestApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title =
-                "AbstractShopRestApi",
-                    Version = "v1"
+                    Title = "SecuritySystemRestApi  ", Version = "v1"
                 });
             });
 

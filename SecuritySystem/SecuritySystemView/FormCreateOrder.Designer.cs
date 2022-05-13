@@ -37,12 +37,14 @@ namespace SecuritySystemView
             this.labelSecure = new System.Windows.Forms.Label();
             this.labelColvo = new System.Windows.Forms.Label();
             this.labelSum = new System.Windows.Forms.Label();
+            this.comboBoxClient = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxSecure
             // 
             this.comboBoxSecure.FormattingEnabled = true;
-            this.comboBoxSecure.Location = new System.Drawing.Point(138, 12);
+            this.comboBoxSecure.Location = new System.Drawing.Point(138, 36);
             this.comboBoxSecure.Name = "comboBoxSecure";
             this.comboBoxSecure.Size = new System.Drawing.Size(273, 23);
             this.comboBoxSecure.TabIndex = 0;
@@ -50,7 +52,7 @@ namespace SecuritySystemView
             // 
             // textBoxCount
             // 
-            this.textBoxCount.Location = new System.Drawing.Point(138, 44);
+            this.textBoxCount.Location = new System.Drawing.Point(138, 65);
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(273, 23);
             this.textBoxCount.TabIndex = 1;
@@ -58,14 +60,14 @@ namespace SecuritySystemView
             // 
             // textBoxSum
             // 
-            this.textBoxSum.Location = new System.Drawing.Point(138, 73);
+            this.textBoxSum.Location = new System.Drawing.Point(138, 96);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.Size = new System.Drawing.Size(273, 23);
             this.textBoxSum.TabIndex = 2;
             // 
             // ButtonCancel
             // 
-            this.ButtonCancel.Location = new System.Drawing.Point(328, 108);
+            this.ButtonCancel.Location = new System.Drawing.Point(328, 139);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(83, 31);
             this.ButtonCancel.TabIndex = 3;
@@ -75,7 +77,7 @@ namespace SecuritySystemView
             // 
             // ButtonSave
             // 
-            this.ButtonSave.Location = new System.Drawing.Point(240, 108);
+            this.ButtonSave.Location = new System.Drawing.Point(240, 139);
             this.ButtonSave.Name = "ButtonSave";
             this.ButtonSave.Size = new System.Drawing.Size(82, 31);
             this.ButtonSave.TabIndex = 4;
@@ -86,7 +88,7 @@ namespace SecuritySystemView
             // labelSecure
             // 
             this.labelSecure.AutoSize = true;
-            this.labelSecure.Location = new System.Drawing.Point(28, 15);
+            this.labelSecure.Location = new System.Drawing.Point(28, 36);
             this.labelSecure.Name = "labelSecure";
             this.labelSecure.Size = new System.Drawing.Size(56, 15);
             this.labelSecure.TabIndex = 5;
@@ -95,7 +97,7 @@ namespace SecuritySystemView
             // labelColvo
             // 
             this.labelColvo.AutoSize = true;
-            this.labelColvo.Location = new System.Drawing.Point(28, 44);
+            this.labelColvo.Location = new System.Drawing.Point(28, 65);
             this.labelColvo.Name = "labelColvo";
             this.labelColvo.Size = new System.Drawing.Size(79, 15);
             this.labelColvo.TabIndex = 6;
@@ -104,17 +106,36 @@ namespace SecuritySystemView
             // labelSum
             // 
             this.labelSum.AutoSize = true;
-            this.labelSum.Location = new System.Drawing.Point(28, 73);
+            this.labelSum.Location = new System.Drawing.Point(28, 96);
             this.labelSum.Name = "labelSum";
             this.labelSum.Size = new System.Drawing.Size(45, 15);
             this.labelSum.TabIndex = 7;
             this.labelSum.Text = "Сумма";
             // 
+            // comboBoxClient
+            // 
+            this.comboBoxClient.FormattingEnabled = true;
+            this.comboBoxClient.Location = new System.Drawing.Point(138, 7);
+            this.comboBoxClient.Name = "comboBoxClient";
+            this.comboBoxClient.Size = new System.Drawing.Size(273, 23);
+            this.comboBoxClient.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 15);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Клиент";
+            // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 159);
+            this.ClientSize = new System.Drawing.Size(461, 182);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBoxClient);
             this.Controls.Add(this.labelSum);
             this.Controls.Add(this.labelColvo);
             this.Controls.Add(this.labelSecure);
@@ -141,5 +162,7 @@ namespace SecuritySystemView
         private System.Windows.Forms.Label labelSecure;
         private System.Windows.Forms.Label labelColvo;
         private System.Windows.Forms.Label labelSum;
+        private System.Windows.Forms.ComboBox comboBoxClient;
+        private System.Windows.Forms.Label label1;
     }
 }

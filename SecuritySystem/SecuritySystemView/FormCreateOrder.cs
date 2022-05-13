@@ -17,11 +17,13 @@ namespace SecuritySystemView
     {
         private readonly ISecureLogic _logicP;
         private readonly IOrderLogic _logicO;
-        public FormCreateOrder(ISecureLogic logicP, IOrderLogic logicO)
+        private readonly IClientLogic _logicC;
+        public FormCreateOrder(ISecureLogic logicP, IOrderLogic logicO, IClientLogic logicC)
         {
             InitializeComponent();
             _logicP = logicP;
             _logicO = logicO;
+            _logicC = logicC;
         }
         public void FormCreateOrder_Load(object sender, EventArgs e)
         {
@@ -32,6 +34,14 @@ namespace SecuritySystemView
                 comboBoxSecure.ValueMember = "Id";
                 comboBoxSecure.DataSource = list;
                 comboBoxSecure.SelectedItem = null;
+            }
+            List<ClientViewModel> listC = _logicC.Read(null);
+            if (listC != null)
+            {
+                comboBoxClient.DisplayMember = "ClientFLM";
+                comboBoxClient.ValueMember = "Id";
+                comboBoxClient.DataSource = listC;
+                comboBoxClient.SelectedItem = null;
             }
         }
         private void CalcSum()
@@ -79,10 +89,16 @@ namespace SecuritySystemView
                MessageBoxIcon.Error);
                 return;
             }
+            if (comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     SecureId = Convert.ToInt32(comboBoxSecure.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)

@@ -19,6 +19,30 @@ namespace SecuritySystemDatabaseImplement.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClientFLM")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Component", b =>
                 {
                     b.Property<int>("Id")
@@ -42,6 +66,9 @@ namespace SecuritySystemDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -61,6 +88,8 @@ namespace SecuritySystemDatabaseImplement.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("SecureId");
 
@@ -113,11 +142,19 @@ namespace SecuritySystemDatabaseImplement.Migrations
 
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Order", b =>
                 {
+                    b.HasOne("SecuritySystemDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Orders")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SecuritySystemDatabaseImplement.Models.Secure", "Secure")
                         .WithMany("Orders")
                         .HasForeignKey("SecureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Client");
 
                     b.Navigation("Secure");
                 });
@@ -139,6 +176,11 @@ namespace SecuritySystemDatabaseImplement.Migrations
                     b.Navigation("Component");
 
                     b.Navigation("Secure");
+                });
+
+            modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Client", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Component", b =>

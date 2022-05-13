@@ -23,6 +23,5 @@ namespace SecuritySystemContracts.BindingModels
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public int? ClientId { get; set; }
-        public int ClientFLM { get; set; }
     }
 }
