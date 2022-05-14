@@ -10,7 +10,7 @@ using SecuritySystemDatabaseImplement;
 namespace SecuritySystemDatabaseImplement.Migrations
 {
     [DbContext(typeof(SecureSystemDatabase))]
-    [Migration("20220513195543_InitialCreate")]
+    [Migration("20220514053307_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
