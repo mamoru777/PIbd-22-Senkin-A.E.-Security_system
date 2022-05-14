@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SecuritySystemContracts.BindingModels;
+﻿using SecuritySystemContracts.BindingModels;
 using SecuritySystemContracts.StoragesContracts;
 using SecuritySystemContracts.ViewModels;
 using SecuritySystemFileImplement.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SecuritySystemFileImplement.Implements
 {
@@ -27,11 +25,18 @@ namespace SecuritySystemFileImplement.Implements
             {
                 return null;
             }
-            return source.Orders.Where(rec => rec.SecureId.ToString().Contains(model.SecureId.ToString())) 
+            return source.Orders.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                    rec.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <=
+                    model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                    (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
+                    (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
            .Select(CreateModel)
            .ToList();
         }
-        
+
         public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null)
@@ -71,6 +76,8 @@ namespace SecuritySystemFileImplement.Implements
         }
         private static Order CreateModel(OrderBindingModel model, Order order)
         {
+            order.ClientId = (int)model.ClientId;
+            order.ImplementerId = model.ImplementerId;
             order.SecureId = model.SecureId;
             order.Count = model.Count;
             order.Sum = model.Sum;
@@ -82,12 +89,12 @@ namespace SecuritySystemFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string dishName = string.Empty;
-            foreach (var dish in source.Secures)
+            string secureName = string.Empty;
+            foreach (var secure in source.Secures)
             {
-                if (dish.Id == order.SecureId)
+                if (secure.Id == order.SecureId)
                 {
-                    dishName = dish.SecureName;
+                    secureName = secure.SecureName;
                 }
             }
             return new OrderViewModel
@@ -95,6 +102,10 @@ namespace SecuritySystemFileImplement.Implements
                 Id = order.Id,
                 SecureId = order.SecureId,
                 SecureName = source.Secures.FirstOrDefault(rec => rec.Id == order.SecureId)?.SecureName,
+                ClientId = order.ClientId,
+                ClientFLM = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFLM,
+                ImplementerId = order.ImplementerId,
+                ImplementerFLM = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFLM,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),

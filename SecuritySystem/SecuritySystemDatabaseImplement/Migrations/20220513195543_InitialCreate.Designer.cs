@@ -10,7 +10,7 @@ using SecuritySystemDatabaseImplement;
 namespace SecuritySystemDatabaseImplement.Migrations
 {
     [DbContext(typeof(SecureSystemDatabase))]
-    [Migration("20220428102845_InitialCreate")]
+    [Migration("20220513195543_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,6 +61,28 @@ namespace SecuritySystemDatabaseImplement.Migrations
                     b.ToTable("Components");
                 });
 
+            modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImplementerFLM")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PauseTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingTime")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -80,6 +102,9 @@ namespace SecuritySystemDatabaseImplement.Migrations
                     b.Property<DateTime?>("DateImplement")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ImplementerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SecureId")
                         .HasColumnType("int");
 
@@ -92,6 +117,8 @@ namespace SecuritySystemDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ImplementerId");
 
                     b.HasIndex("SecureId");
 
@@ -150,6 +177,10 @@ namespace SecuritySystemDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SecuritySystemDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImplementerId");
+
                     b.HasOne("SecuritySystemDatabaseImplement.Models.Secure", "Secure")
                         .WithMany("Orders")
                         .HasForeignKey("SecureId")
@@ -157,6 +188,8 @@ namespace SecuritySystemDatabaseImplement.Migrations
                         .IsRequired();
 
                     b.Navigation("Client");
+
+                    b.Navigation("Implementer");
 
                     b.Navigation("Secure");
                 });
@@ -188,6 +221,11 @@ namespace SecuritySystemDatabaseImplement.Migrations
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Component", b =>
                 {
                     b.Navigation("SecureComponents");
+                });
+
+            modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Secure", b =>

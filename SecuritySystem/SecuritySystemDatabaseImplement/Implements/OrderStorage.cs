@@ -37,7 +37,7 @@ namespace SecuritySystemDatabaseImplement.Implements
             }
             using var context = new SecureSystemDatabase();
             var order = context.Orders
-            .Include(rec => rec.Secure).Include(rec => rec.Client)
+            .Include(rec => rec.Secure).Include(rec => rec.Client).Include(rec => rec.Implementer)
             .FirstOrDefault(rec => rec.Id == model.Id ||
             rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
@@ -53,14 +53,12 @@ namespace SecuritySystemDatabaseImplement.Implements
             return context.Orders
                 .Include(rec => rec.Client)
                 .Include(rec => rec.Secure)
-                /*.Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue &&
-rec.DateCreate.Date == model.DateCreate.Date) ||
- (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
->= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
- (model.ClientId.HasValue && rec.ClientId == model.ClientId))*/
-                .Where(rec => rec.SecureId == model.SecureId ||
-                (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo) ||
-                (rec.ClientId == model.ClientId))
+                .Include(rec => rec.Implementer)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                      (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+                      (rec.ClientId == model.ClientId) ||
+                      (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status) ||
+                      (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                 .Select(CreateModel)
                 .ToList();
         }
@@ -71,6 +69,7 @@ rec.DateCreate.Date == model.DateCreate.Date) ||
             return context.Orders
             .Include(rec => rec.Secure)
             .Include(rec => rec.Client)
+            .Include(rec => rec.Implementer)
             .ToList()
             .Select(CreateModel)
             .ToList();
@@ -124,6 +123,7 @@ rec.DateCreate.Date == model.DateCreate.Date) ||
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.ImplementerId = model.ImplementerId;
             return order;
         }
         private static OrderViewModel CreateModel(Order order)
@@ -133,6 +133,8 @@ rec.DateCreate.Date == model.DateCreate.Date) ||
                 Id = order.Id,
                 ClientId = order.ClientId,
                 ClientFLM = order.Client.ClientFLM,
+                ImplementerId = order.ImplementerId,
+                ImplementerFLM = order.ImplementerId.HasValue ? order.Implementer.ImplementerFLM : string.Empty,
                 SecureId = order.SecureId,
                 SecureName = order.Secure.SecureName,
                 Count = order.Count,
