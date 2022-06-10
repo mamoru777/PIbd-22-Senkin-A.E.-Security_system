@@ -15,6 +15,8 @@ using SecuritySystemBusinessLogic.BusinessLogics;
 using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.StoragesContracts;
 using SecuritySystemDatabaseImplement.Implements;
+using SecuritySystemBusinessLogic.MailWorker;
+using SecuritySystemContracts.BindingModels;
 
 
 namespace SecuritySystemRestApi
@@ -38,6 +40,9 @@ namespace SecuritySystemRestApi
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<ISecureLogic, SecureLogic>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -68,6 +73,16 @@ namespace SecuritySystemRestApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = Configuration?.GetSection("MailLogin")?.Value.ToString(),
+                MailPassword = Configuration?.GetSection("MailPassword")?.Value.ToString(),
+                SmtpClientHost = Configuration?.GetSection("SmtpClientHost")?.Value.ToString(),
+                SmtpClientPort = Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.Value.ToString()),
+                PopHost = Configuration?.GetSection("PopHost")?.Value.ToString(),
+                PopPort = Convert.ToInt32(Configuration?.GetSection("PopPort")?.Value.ToString())
             });
         }
     }

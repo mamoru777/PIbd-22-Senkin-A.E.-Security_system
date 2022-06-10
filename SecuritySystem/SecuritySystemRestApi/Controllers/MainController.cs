@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SecuritySystemContracts.BindingModels;
 using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace SecuritySystemRestApi.Controllers
 {
@@ -15,6 +16,7 @@ namespace SecuritySystemRestApi.Controllers
     {
         private readonly IOrderLogic _order;
         private readonly ISecureLogic _secure;
+        private readonly ILogger<MainController> logger;
         public MainController(IOrderLogic order, ISecureLogic secure)
         {
             _order = order;

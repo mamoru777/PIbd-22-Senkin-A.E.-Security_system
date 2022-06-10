@@ -9,8 +9,12 @@ using SecuritySystemBusinessLogic.BusinessLogics;
 using SecuritySystemDatabaseImplement.Implements;
 using SecuritySystemBusinessLogic.OfficePackage;
 using SecuritySystemBusinessLogic.OfficePackage.Implements;
+using SecuritySystemContracts.BindingModels;
+using SecuritySystemBusinessLogic.MailWorker;
 using Unity;
 using Unity.Lifetime;
+using System.Configuration;
+using System.Threading;
 
 namespace SecuritySystemView
 {
@@ -35,9 +39,22 @@ namespace SecuritySystemView
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            var mailSender = Container.Resolve<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = "senkinsaha@yandex.ru",//ConfigurationManager.AppSettings["MailLogin"],
+                MailPassword = "lcejqnqoowphuxch",//ConfigurationManager.AppSettings["MailPassword"],
+                SmtpClientHost = "smtp.yandex.ru",//ConfigurationManager.AppSettings["SmtpClientHost"],
+                SmtpClientPort = 587,//Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
+                PopHost = "pop.yandex.ru",//ConfigurationManager.AppSettings["PopHost"],
+                PopPort = 995//Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"])
+            });
+            var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 50000);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
+
+            
         }
         private static IUnityContainer BuildUnityContainer()
         {
@@ -68,7 +85,11 @@ namespace SecuritySystemView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWorkProcess, WorkModeling>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMessageInfoStorage, MessageInfoStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMessageInfoLogic, MessageInfoLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractMailWorker, MailKitWorker>(new SingletonLifetimeManager());
             return currentContainer;
         }
+        private static void MailCheck(object obj) => Container.Resolve<AbstractMailWorker>().MailCheck();
     }
 }

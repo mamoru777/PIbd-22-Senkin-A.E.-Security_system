@@ -8,15 +8,20 @@ using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.Enums;
 using SecuritySystemContracts.StoragesContracts;
 using SecuritySystemContracts.ViewModels;
+using SecuritySystemBusinessLogic.MailWorker;
 
 namespace SecuritySystemBusinessLogic.BusinessLogics
 {
     public class OrderLogic : IOrderLogic
     {
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IClientStorage clientStorage;
+        private readonly AbstractMailWorker abstractMailWorker;
+        public OrderLogic(IOrderStorage orderStorage, IClientStorage _clientStorage, AbstractMailWorker _abstractMailWorker)
         {
             _orderStorage = orderStorage;
+            clientStorage = _clientStorage;
+            abstractMailWorker = _abstractMailWorker;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -41,6 +46,15 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
+            });
+            abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = model.ClientId
+                })?.Email,
+                Subject = $"Создан новый заказ",
+                Text = $"Заказ от {DateTime.Now} на сумму {model.Sum:N2} принят."
             });
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
@@ -69,6 +83,15 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выполняется
             });
+            abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} передан в работу."
+            });
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
@@ -96,6 +119,15 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Готов
             });
+            abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} выполнен."
+            });
         }
         public void DeliveryOrder(ChangeStatusBindingModel model)
         {
@@ -122,6 +154,15 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выдан
+            });
+            abstractMailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = clientStorage.GetElement(new ClientBindingModel
+                {
+                    Id = order.ClientId
+                })?.Email,
+                Subject = $"Заказ №{order.Id}",
+                Text = $"Заказ №{order.Id} выдан."
             });
         }
     }

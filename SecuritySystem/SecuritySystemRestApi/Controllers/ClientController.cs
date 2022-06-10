@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SecuritySystemContracts.BindingModels;
 using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.ViewModels;
+using Microsoft.Extensions.Logging;
 
 
 namespace SecuritySystemRestApi.Controllers
@@ -15,9 +16,12 @@ namespace SecuritySystemRestApi.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientLogic _logic;
-        public ClientController(IClientLogic logic)
+        private readonly IMessageInfoLogic logicMI;
+        private readonly ILogger<MainController> logger;
+        public ClientController(IClientLogic logic, IMessageInfoLogic _logicMI)
         {
             _logic = logic;
+            logicMI = _logicMI;
         }
         [HttpGet]
         public ClientViewModel Login(string login, string password)
@@ -35,5 +39,8 @@ namespace SecuritySystemRestApi.Controllers
         [HttpPost]
         public void UpdateData(ClientBindingModel model) =>
         _logic.CreateOrUpdate(model);
+        [HttpGet]
+        public List<MessageInfoViewModel> GetMessageInfos(int clientId) =>
+            logicMI.Read(new MessageInfoBindingModel { ClientId = clientId });
     }
 }

@@ -136,5 +136,14 @@ namespace SecuritySystemClientApp.Controllers
             SecureViewModel prod = APIClient.GetRequest<SecureViewModel>($"api/main/getsecure?secureId={secure}");
             return count * prod.Price;
         }
+
+        public IActionResult Messages()
+        {
+            if (Program.Client == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View(APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/getmessageinfos?clientId={Program.Client.Id}"));
+        }
     }
 }

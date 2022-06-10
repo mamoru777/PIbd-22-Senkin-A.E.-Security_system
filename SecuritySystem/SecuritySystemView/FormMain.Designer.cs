@@ -44,6 +44,7 @@ namespace SecuritySystemView
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripClients = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.сообщенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -93,7 +94,8 @@ namespace SecuritySystemView
             this.справочникToolStripMenuItem,
             this.отчетыToolStripMenuItem,
             this.toolStripClients,
-            this.toolStripMenuItem6});
+            this.toolStripMenuItem6,
+            this.сообщенияToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(784, 24);
@@ -176,6 +178,13 @@ namespace SecuritySystemView
             this.toolStripMenuItem6.Text = "Запуск работ";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItemStartWorks_Click);
             // 
+            // сообщенияToolStripMenuItem
+            // 
+            this.сообщенияToolStripMenuItem.Name = "сообщенияToolStripMenuItem";
+            this.сообщенияToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.сообщенияToolStripMenuItem.Text = "Сообщения";
+            this.сообщенияToolStripMenuItem.Click += new System.EventHandler(this.сообщенияToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -214,6 +223,7 @@ namespace SecuritySystemView
         private System.Windows.Forms.ToolStripMenuItem toolStripClients;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem исполнителиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сообщенияToolStripMenuItem;
     }
 }
 
