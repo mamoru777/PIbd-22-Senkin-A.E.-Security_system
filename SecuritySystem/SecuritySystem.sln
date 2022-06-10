@@ -11,9 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuritySystemBusinessLogic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuritySystemListImplement", "SecuritySystemListImplement\SecuritySystemListImplement.csproj", "{A9D9256E-F295-41CD-B24A-A2D8B708868A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuritySystemFileImplements", "SystemSecureFileImplements\SecuritySystemFileImplements.csproj", "{AAFD8EEA-8053-4FF1-BC9F-FED362C8757D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuritySystemFileImplement", "SystemSecureFileImplements\SecuritySystemFileImplement.csproj", "{AAFD8EEA-8053-4FF1-BC9F-FED362C8757D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemDatabaseImplement", "SecuritySystemDatabaseImplement\SecuritySystemDatabaseImplement.csproj", "{420CAC8D-39A0-4BE4-83AC-B2B6F3743013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuritySystemDatabaseImplement", "SecuritySystemDatabaseImplement\SecuritySystemDatabaseImplement.csproj", "{420CAC8D-39A0-4BE4-83AC-B2B6F3743013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemRestApi", "SecuritySystemRestApi\SecuritySystemRestApi.csproj", "{DF877BDE-B6AA-404C-88A0-CEA0757D6AC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemClientApp", "SecuritySystemClientApp\SecuritySystemClientApp.csproj", "{89CF26E1-EFB7-44C5-80E2-4B17CD8F67B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{420CAC8D-39A0-4BE4-83AC-B2B6F3743013}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{420CAC8D-39A0-4BE4-83AC-B2B6F3743013}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{420CAC8D-39A0-4BE4-83AC-B2B6F3743013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF877BDE-B6AA-404C-88A0-CEA0757D6AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF877BDE-B6AA-404C-88A0-CEA0757D6AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF877BDE-B6AA-404C-88A0-CEA0757D6AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF877BDE-B6AA-404C-88A0-CEA0757D6AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89CF26E1-EFB7-44C5-80E2-4B17CD8F67B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89CF26E1-EFB7-44C5-80E2-4B17CD8F67B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89CF26E1-EFB7-44C5-80E2-4B17CD8F67B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89CF26E1-EFB7-44C5-80E2-4B17CD8F67B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

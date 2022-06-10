@@ -34,7 +34,9 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
         {
             _orderStorage.Insert(new OrderBindingModel
             {
+                
                 SecureId = model.SecureId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
@@ -62,6 +64,7 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
+                ClientId = order.ClientId,
                 DateImplement = DateTime.Now,
                 Status = OrderStatus.Выполняется
             });
@@ -82,6 +85,7 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
             }
             _orderStorage.Update(new OrderBindingModel
             {
+                ClientId = order.ClientId,
                 Id = order.Id,
                 SecureId = order.SecureId,
                 Count = order.Count,
@@ -108,6 +112,7 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 SecureId = order.SecureId,
                 Count = order.Count,
                 Sum = order.Sum,

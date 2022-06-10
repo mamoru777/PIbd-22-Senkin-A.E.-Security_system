@@ -67,11 +67,11 @@ namespace SecuritySystemListImplement.Implements
                 SecureComponents = new
             Dictionary<int, int>()
             };
-            foreach (var product in source.Secures)
+            foreach (var secure in source.Secures)
             {
-                if (product.Id >= tempSecure.Id)
+                if (secure.Id >= tempSecure.Id)
                 {
-                    tempSecure.Id = product.Id + 1;
+                    tempSecure.Id = secure.Id + 1;
                 }
             }
             source.Secures.Add(CreateModel(model, tempSecure));

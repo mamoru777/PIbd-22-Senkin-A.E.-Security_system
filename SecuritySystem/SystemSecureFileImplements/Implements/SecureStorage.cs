@@ -41,10 +41,10 @@ namespace SecuritySystemFileImplement.Implements
             {
                 return null;
             }
-            var product = source.Secures
+            var secure = source.Secures
             .FirstOrDefault(rec => rec.SecureName == model.SecureName || rec.Id
            == model.Id);
-            return product != null ? CreateModel(product) : null;
+            return secure != null ? CreateModel(secure) : null;
         }
         public void Insert(SecureBindingModel model)
         {

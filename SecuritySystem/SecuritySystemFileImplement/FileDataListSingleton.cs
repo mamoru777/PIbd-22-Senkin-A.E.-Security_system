@@ -15,7 +15,7 @@ namespace SecuritySystemFileImplement
         private static FileDataListSingleton instance;
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
-        private readonly string SecureFileName = "Product.xml";
+        private readonly string SecureFileName = "Secure.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Secure> Secures { get; set; }
@@ -152,19 +152,19 @@ namespace SecuritySystemFileImplement
             if (Secures != null)
             {
                 var xElement = new XElement("Secures");
-                foreach (var product in Secures)
+                foreach (var secure in Secures)
                 {
                     var compElement = new XElement("SecureComponents");
-                    foreach (var component in product.SecureComponents)
+                    foreach (var component in secure.SecureComponents)
                     {
                         compElement.Add(new XElement("SecureComponent",
                         new XElement("Key", component.Key),
                         new XElement("Value", component.Value)));
                     }
                     xElement.Add(new XElement("Secure",
-                     new XAttribute("Id", product.Id),
-                     new XElement("SecureName", product.SecureName),
-                     new XElement("Price", product.Price),
+                     new XAttribute("Id", secure.Id),
+                     new XElement("SecureName", secure.SecureName),
+                     new XElement("Price", secure.Price),
                      compElement));
                 }
                 var xDocument = new XDocument(xElement);

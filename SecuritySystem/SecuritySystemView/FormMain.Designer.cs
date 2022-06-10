@@ -43,6 +43,7 @@ namespace SecuritySystemView
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripClients = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -110,7 +111,8 @@ namespace SecuritySystemView
             // 
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникToolStripMenuItem,
-            this.отчетыToolStripMenuItem});
+            this.отчетыToolStripMenuItem,
+            this.toolStripClients});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(784, 24);
@@ -129,14 +131,14 @@ namespace SecuritySystemView
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.toolStripMenuItem1.Text = "Компоненты";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.КомпонентыToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(145, 22);
             this.toolStripMenuItem2.Text = "Изделия";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.ИзделияToolStripMenuItem_Click);
             // 
@@ -170,6 +172,13 @@ namespace SecuritySystemView
             this.toolStripMenuItem5.Size = new System.Drawing.Size(218, 22);
             this.toolStripMenuItem5.Text = "Список заказов";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.OrdersToolStripMenuItem_Click);
+            // 
+            // toolStripClients
+            // 
+            this.toolStripClients.Name = "toolStripClients";
+            this.toolStripClients.Size = new System.Drawing.Size(67, 20);
+            this.toolStripClients.Text = "Клиенты";
+            this.toolStripClients.Click += new System.EventHandler(this.toolStripClients_Click);
             // 
             // FormMain
             // 
@@ -210,6 +219,7 @@ namespace SecuritySystemView
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem toolStripClients;
     }
 }
 
