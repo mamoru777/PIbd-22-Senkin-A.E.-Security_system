@@ -57,9 +57,15 @@ namespace SecuritySystemDatabaseImplement.Implements
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.Secures.Add(CreateModel(model, new Secure(), context));
-                context.SaveChanges();
-                transaction.Commit();
+                Secure secure = new Secure()
+                {
+                    SecureName = model.SecureName,
+                    Price = model.Price
+                };            
+            context.Secures.Add(secure);
+            context.SaveChanges();
+            CreateModel(model, secure, context);
+            transaction.Commit();
             }
             catch
             {
