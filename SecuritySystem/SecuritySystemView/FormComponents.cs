@@ -29,13 +29,8 @@ namespace SecuritySystemView
         {
             try
             {
-                var list = _logic.Read(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
+                Program.ConfigGrid(_logic.Read(null), dataGridView);
+                dataGridView.Columns[0].Visible = false;
             }
             catch (Exception ex)
             {

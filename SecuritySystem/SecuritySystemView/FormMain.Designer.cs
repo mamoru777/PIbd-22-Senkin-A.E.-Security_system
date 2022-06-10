@@ -45,6 +45,7 @@ namespace SecuritySystemView
             this.toolStripClients = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.сообщенияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сделатьБэкапToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +96,8 @@ namespace SecuritySystemView
             this.отчетыToolStripMenuItem,
             this.toolStripClients,
             this.toolStripMenuItem6,
-            this.сообщенияToolStripMenuItem});
+            this.сообщенияToolStripMenuItem,
+            this.сделатьБэкапToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(784, 24);
@@ -185,6 +187,13 @@ namespace SecuritySystemView
             this.сообщенияToolStripMenuItem.Text = "Сообщения";
             this.сообщенияToolStripMenuItem.Click += new System.EventHandler(this.сообщенияToolStripMenuItem_Click);
             // 
+            // сделатьБэкапToolStripMenuItem
+            // 
+            this.сделатьБэкапToolStripMenuItem.Name = "сделатьБэкапToolStripMenuItem";
+            this.сделатьБэкапToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.сделатьБэкапToolStripMenuItem.Text = "Сделать Бэкап";
+            this.сделатьБэкапToolStripMenuItem.Click += new System.EventHandler(this.сделатьБэкапToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -224,6 +233,7 @@ namespace SecuritySystemView
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem исполнителиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сообщенияToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сделатьБэкапToolStripMenuItem;
     }
 }
 
