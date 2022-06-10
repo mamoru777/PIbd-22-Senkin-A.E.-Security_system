@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-
+using SecuritySystemContracts.Attributes;
 
 namespace SecuritySystemContracts.ViewModels
 {
@@ -14,8 +14,9 @@ namespace SecuritySystemContracts.ViewModels
 
     public class ComponentViewModel
     {
+        [Column(title: "Номер", width: 100)]
         public int Id { get; set; }
-        [DisplayName("Название компонента")]
+        [Column(title: "Название компонента", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ComponentName { get; set; }
     }
 }

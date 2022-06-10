@@ -37,6 +37,8 @@ namespace SecuritySystemView
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                Program.ConfigGrid(_clientLogic.Read(null), dataGridView);
+                dataGridView.Columns[0].Visible = false;
             }
             catch (Exception ex)
             {
