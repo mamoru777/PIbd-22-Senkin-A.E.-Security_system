@@ -51,7 +51,7 @@ namespace SecuritySystemDatabaseImplement.Implements
             }
             using var context = new SecureSystemDatabase();
             return context.Orders
-                .Include(rec => rec.Client)
+.Include(rec => rec.Client)
                 .Include(rec => rec.Secure)
                 .Include(rec => rec.Implementer)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
