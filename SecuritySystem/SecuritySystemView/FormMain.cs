@@ -133,6 +133,11 @@ namespace SecuritySystemView
             var form = Program.Container.Resolve<FormImplementers>();
             form.ShowDialog();
         }
+        private void сообщенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormMessageInfos>();
+            form.ShowDialog();
+        }
     }
 }
 

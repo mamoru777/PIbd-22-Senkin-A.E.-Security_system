@@ -133,7 +133,7 @@ namespace SecuritySystemDatabaseImplement.Implements
                 Id = order.Id,
                 ClientId = order.ClientId,
                 ClientFLM = order.Client.ClientFLM,
-                ImplementerId = order.ImplementerId,
+                ImplementerId = order.ImplementerId.HasValue ? order.ImplementerId : null,
                 ImplementerFLM = order.ImplementerId.HasValue ? order.Implementer.ImplementerFLM : string.Empty,
                 SecureId = order.SecureId,
                 SecureName = order.Secure.SecureName,

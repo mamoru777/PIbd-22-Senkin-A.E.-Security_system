@@ -9,8 +9,12 @@ using SecuritySystemBusinessLogic.BusinessLogics;
 using SecuritySystemDatabaseImplement.Implements;
 using SecuritySystemBusinessLogic.OfficePackage;
 using SecuritySystemBusinessLogic.OfficePackage.Implements;
+using SecuritySystemContracts.BindingModels;
+using SecuritySystemBusinessLogic.MailWorker;
 using Unity;
 using Unity.Lifetime;
+using System.Configuration;
+using System.Threading;
 
 namespace SecuritySystemView
 {
@@ -38,6 +42,18 @@ namespace SecuritySystemView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
+
+            var mailSender = Container.Resolve<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = ConfigurationManager.AppSettings["MailLogin"],
+                MailPassword = ConfigurationManager.AppSettings["MailPassword"],
+                SmtpClientHost = ConfigurationManager.AppSettings["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
+                PopHost = ConfigurationManager.AppSettings["PopHost"],
+                PopPort = Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"])
+            });
+            var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 50000);
         }
         private static IUnityContainer BuildUnityContainer()
         {
@@ -68,7 +84,11 @@ namespace SecuritySystemView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWorkProcess, WorkModeling>(new
             HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMessageInfoStorage, MessageInfoStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMessageInfoLogic, MessageInfoLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractMailWorker, MailKitWorker>(new SingletonLifetimeManager());
             return currentContainer;
         }
+        private static void MailCheck(object obj) => Container.Resolve<AbstractMailWorker>().MailCheck();
     }
 }

@@ -7,12 +7,15 @@ using SecuritySystemContracts.BindingModels;
 using SecuritySystemContracts.BuisnessLogicsContracts;
 using SecuritySystemContracts.StoragesContracts;
 using SecuritySystemContracts.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace SecuritySystemBusinessLogic.BusinessLogics
 {
     public class ClientLogic : IClientLogic
     {
         private readonly IClientStorage _clientStorage;
+        private readonly int passwordMaxLength = 50;
+        private readonly int passwordMinLength = 10;
 
         public ClientLogic(IClientStorage clientStorage)
         {
@@ -41,6 +44,16 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
             {
                 throw new Exception("Уже есть клиент с такой почтой");
             }
+            if (!Regex.IsMatch(model.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                throw new Exception("В качестве логина должна быть указана почта");
+            }
+            if (model.Password.Length > passwordMaxLength || model.Password.Length < passwordMinLength
+                || !Regex.IsMatch(model.Password, @"^((\w+\d+\W+)|(\w+\W+\d+)|(\d+\w+\W+)|(\d+\W+\w+)|(\W+\w+\d+)|(\W+\d+\w+))[\w\d\W]*$"))
+            {
+                throw new Exception($"Пароль длиной от {passwordMinLength} до { passwordMaxLength } " +
+                    $"должен состоять и из цифр, букв и небуквенных символов");
+            }
             if (model.Id.HasValue)
             {
                 _clientStorage.Update(model);
@@ -49,6 +62,7 @@ namespace SecuritySystemBusinessLogic.BusinessLogics
             {
                 _clientStorage.Insert(model);
             }
+            
         }
         public void Delete(ClientBindingModel model)
         {

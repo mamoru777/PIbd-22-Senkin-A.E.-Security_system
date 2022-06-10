@@ -10,8 +10,8 @@ using SecuritySystemDatabaseImplement;
 namespace SecuritySystemDatabaseImplement.Migrations
 {
     [DbContext(typeof(SecureSystemDatabase))]
-    [Migration("20220514053307_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220609202454_Initialcreate")]
+    partial class Initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,6 +81,33 @@ namespace SecuritySystemDatabaseImplement.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Implementers");
+                });
+
+            modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("MessageInfoes");
                 });
 
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Order", b =>
@@ -169,6 +196,15 @@ namespace SecuritySystemDatabaseImplement.Migrations
                     b.ToTable("SecureComponents");
                 });
 
+            modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("SecuritySystemDatabaseImplement.Models.Client", "Client")
+                        .WithMany("MessageInfos")
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("SecuritySystemDatabaseImplement.Models.Client", "Client")
@@ -215,6 +251,8 @@ namespace SecuritySystemDatabaseImplement.Migrations
 
             modelBuilder.Entity("SecuritySystemDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("MessageInfos");
+
                     b.Navigation("Orders");
                 });
 
