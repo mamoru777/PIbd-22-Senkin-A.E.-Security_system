@@ -40,10 +40,6 @@ namespace SecuritySystemView
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(Container.Resolve<FormMain>());
-
             var mailSender = Container.Resolve<AbstractMailWorker>();
             mailSender.MailConfig(new MailConfigBindingModel
             {
@@ -55,6 +51,9 @@ namespace SecuritySystemView
                 PopPort = Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"])
             });
             var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 50000);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(Container.Resolve<FormMain>());    
         }
         private static IUnityContainer BuildUnityContainer()
         {
