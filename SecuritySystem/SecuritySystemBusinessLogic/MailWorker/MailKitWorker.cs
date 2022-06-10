@@ -58,7 +58,7 @@ namespace SecuritySystemBusinessLogic.MailWorker
                         {
                             list.Add(new MessageInfoBindingModel
                             {
-                                ClientId = _clientStorage.GetElement(new ClientBindingModel { Email = mail.Address })?.Id,
+                                //ClientId = _clientStorage.GetElement(new ClientBindingModel { Email = mail.Address })?.Id,
                                 DateDelivery = message.Date.DateTime,
                                 MessageId = message.MessageId,
                                 FromMailAddress = mail.Address,
