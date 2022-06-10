@@ -39,21 +39,22 @@ namespace SecuritySystemView
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            var mailSender = Container.Resolve<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = "senkinsaha@yandex.ru",//ConfigurationManager.AppSettings["MailLogin"],
+                MailPassword = "lcejqnqoowphuxch",//ConfigurationManager.AppSettings["MailPassword"],
+                SmtpClientHost = "smtp.yandex.ru",//ConfigurationManager.AppSettings["SmtpClientHost"],
+                SmtpClientPort = 587,//Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
+                PopHost = "pop.yandex.ru",//ConfigurationManager.AppSettings["PopHost"],
+                PopPort = 995//Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"])
+            });
+            var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 50000);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Container.Resolve<FormMain>());
 
-            var mailSender = Container.Resolve<AbstractMailWorker>();
-            mailSender.MailConfig(new MailConfigBindingModel
-            {
-                MailLogin = ConfigurationManager.AppSettings["MailLogin"],
-                MailPassword = ConfigurationManager.AppSettings["MailPassword"],
-                SmtpClientHost = ConfigurationManager.AppSettings["SmtpClientHost"],
-                SmtpClientPort = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
-                PopHost = ConfigurationManager.AppSettings["PopHost"],
-                PopPort = Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"])
-            });
-            var timer = new System.Threading.Timer(new TimerCallback(MailCheck), null, 0, 50000);
+            
         }
         private static IUnityContainer BuildUnityContainer()
         {
