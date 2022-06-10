@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using SecuritySystemContracts.BindingModels;
 using SecuritySystemContracts.ViewModels;
-using SecuritySystemClientApp.Models;
 
 namespace SecuritySystemClientApp.Controllers
 {

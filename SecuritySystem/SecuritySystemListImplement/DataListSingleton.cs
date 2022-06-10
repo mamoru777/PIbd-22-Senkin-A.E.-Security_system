@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SecuritySystemListImplement.Models;
 
 
+
 namespace SecuritySystemListImplement
 {
     public class DataListSingleton
@@ -15,12 +16,14 @@ namespace SecuritySystemListImplement
         public List<Order> Orders { get; set; }
         public List<Secure> Secures { get; set; }
         public List<Client> Clients { get; set; }
+        public List<Implementer> Implementers { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
             Secures = new List<Secure>();
             Clients = new List<Client>();
+            Implementers = new List<Implementer>();
         }
         public static DataListSingleton GetInstance()
         {

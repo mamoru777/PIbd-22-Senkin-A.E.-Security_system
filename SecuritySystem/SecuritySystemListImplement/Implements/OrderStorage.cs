@@ -37,7 +37,10 @@ namespace SecuritySystemListImplement.Implements
             var result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.SecureId.ToString().Contains(model.SecureId.ToString()))
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate == model.DateCreate) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && order.ClientId == model.ClientId) || (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status) ||
+                    (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -106,6 +109,7 @@ namespace SecuritySystemListImplement.Implements
         {
             order.SecureId = model.SecureId;
             order.Count = model.Count;
+            order.ImplementerId = model.ImplementerId;
             order.Sum = model.Sum;
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
@@ -115,12 +119,31 @@ namespace SecuritySystemListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string secureName = string.Empty;
-            foreach (var secure in source.Secures)
+            string secureName = null;
+            for (int i = 0; i < source.Secures.Count; i++)
             {
-                if (secure.Id == order.SecureId)
+                if (source.Secures[i].Id == order.SecureId)
                 {
-                    secureName = secure.SecureName;
+                    secureName = source.Secures[i].SecureName;
+                    break;
+                }
+            }
+            string clientFLM = null;
+            for (int i = 0; i < source.Clients.Count; i++)
+            {
+                if (source.Clients[i].Id == order.ClientId)
+                {
+                    clientFLM = source.Clients[i].ClientFLM;
+                    break;
+                }
+            }
+            string implementerFLM = null;
+            for (int i = 0; i < source.Implementers.Count; i++)
+            {
+                if (source.Implementers[i].Id == order.ImplementerId)
+                {
+                    implementerFLM = source.Implementers[i].ImplementerFLM;
+                    break;
                 }
             }
             return new OrderViewModel
@@ -128,6 +151,10 @@ namespace SecuritySystemListImplement.Implements
                 Id = order.Id,
                 SecureId = order.SecureId,
                 SecureName = secureName,
+                ClientId = order.ClientId,
+                ClientFLM    = clientFLM,
+                ImplementerId = order.ImplementerId,
+                ImplementerFLM = implementerFLM,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),
